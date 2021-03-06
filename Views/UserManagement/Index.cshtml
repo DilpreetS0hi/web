@@ -1,0 +1,54 @@
+@model IEnumerable<Web.ViewModels.UserRoleViewModel>
+
+
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div style="margin-bottom:10px;">
+    <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Register">Add New User</a>
+</div>
+
+<table class="table panel panel-default">
+    <thead>
+        <tr>
+            <th class="col-sm-3">Username</th>
+            <th class="col-sm-3">Email</th>
+            <th class="col-sm-3">Role</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var userRoleViewModel in Model)
+        {
+            <tr>
+                <td class="col-sm-3">
+                    @Html.DisplayFor(_ => userRoleViewModel.IdentityUser.UserName)
+                </td>
+                <td class="col-sm-3">
+                    @Html.DisplayFor(_ => userRoleViewModel.IdentityUser.Email)
+                </td>
+                <td class="col-sm-3">
+                    @Html.DisplayFor(_ => userRoleViewModel.IdentityRole.Name)
+                </td>
+                <td>
+                    @if (userRoleViewModel.IdentityUser.UserName != Constants.Account.ADMIN_USER_NAME)
+                    {
+                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@userRoleViewModel.IdentityUser.UserName">Edit</a>
+                    }
+                </td>
+                <td>
+                    @if (userRoleViewModel.IdentityUser.UserName != Constants.Account.ADMIN_USER_NAME)
+                    {
+                        <form asp-action="Delete" asp-route-id="@userRoleViewModel.IdentityUser.Id">
+                            <input type="submit" class="btn btn-danger" value="Delete" />
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

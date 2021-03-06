@@ -1,0 +1,39 @@
+@model Web.ViewModels.UserRoleViewModel
+
+
+@{
+    ViewData["Title"] = "Edit User Role";
+}
+
+<h1>@ViewData["Title"]</h1>
+<h1>
+    @TempData["info"]
+</h1>
+
+<form asp-controller="UserManagement" asp-action="Edit" method="post">
+    <table class="table panel panel-default">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdentityUser)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdentityRole)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.IdentityUser.UserName)
+                </td>
+                <td>
+                    <input type="hidden" asp-for="IdentityUserID" /> @**Contains current user, IdentityRoleID explicitly not kept*@
+                    <select asp-for="IdentityRole.Id" class="form-control" asp-items="ViewBag.Roles"></select> @**New Role, non-self-closing*@
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Save</button> |
+    <a class="btn btn-primary" asp-action="Index">Back to List</a>
+</form>

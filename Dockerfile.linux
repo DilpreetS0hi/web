@@ -1,0 +1,8 @@
+FROM microsoft/aspnetcore-build:1.0.3-projectjson
+ENTRYPOINT ["dotnet", "run"]
+ENV ASPNETCORE_ENVIRONMENT=Development
+WORKDIR /app
+COPY . .
+RUN dotnet restore
+RUN dotnet ef database update
+EXPOSE 80

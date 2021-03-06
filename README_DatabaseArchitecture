@@ -1,0 +1,9 @@
+Tasks:
+Work together with backend team to decide database structure
+Formulate DDL file
+
+Technologies:
+SQLite
+
+Architecture:
+Database-first
